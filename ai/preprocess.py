@@ -4,7 +4,7 @@ import re
 
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r"[^a-ая-z0-9\s]", "", text)
+    text = re.sub(r"[^a-zA-Zа-яА-ЯёЁ0-9\s]", "", text)
     return text.strip()
 
 def train_vectorizer(corpus):
