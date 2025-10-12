@@ -1,5 +1,5 @@
 import joblib 
-from preprocess import clean_text, load_vectorizer
+from ai.preprocess import clean_text, load_vectorizer
 
 def load_model(model_path: str = "ai/comment_model.pkl"):
     return joblib.load(model_path)

@@ -1,19 +1,22 @@
-import streamlit as st
-from ai.model import CommentModel
-from ai.preprocess import clean_text, load_vectorizer
+from flask import Flask, render_template, request
+from ai.predict import predict_comment
 
-st.title("Определение тональности комментария")
+app = Flask(__name__)
 
-vectorizer = load_vectorizer()
-model = CommentModel.load()
+@app.route("/", methods=["GET", "POST"])
+def index():
+    result = None
+    comment = ""
+    if request.method == "POST":
+        comment = request.form.get("comment", "")
+        if comment.strip():
+            result = predict_comment(comment)
+        else:
+            result = "Введите текст комментария ..."
+    return render_template("index.html", result=result, comment=comment)
 
-comment = st.button("Проверить")
-
-if st.button("Проверить"):
-    text = clean_text(comment)
-    X = vectorizer.transform([text])
-    prediction = model.predict(X)[0]
-    st.success("Комментарий +" if prediction == 1 else "Комеент -")
+if __name__ == "__main__":
+    app.run(debug=True)
     
 
 
