@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
-from model import CommentModel
-from preprocess import clean_text, train_vectorizer
+from .model import CommentModel
+from .preprocess import clean_text, train_vectorizer
 
 def train_model(csv_path: str = "data/comments.csv"):
     print("загрузка данных...")
